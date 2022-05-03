@@ -7,7 +7,7 @@ const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
   entry: {
-    main: ['webpack-hot-middleware/client', './src/index.jsx'],
+    main: ['webpack-hot-middleware/client', './src/index.jsx', 'regenerator-runtime/runtime.js'], // add in regenerator-runtime to prevent issue with async fn : https://dev.to/hulyakarakaya/how-to-fix-regeneratorruntime-is-not-defined-doj -> might need in production file
   },
   mode: 'development',
   devtool: 'inline-source-map',

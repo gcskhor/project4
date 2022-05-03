@@ -3,8 +3,61 @@ import express from 'express';
 import methodOverride from 'method-override';
 import bindRoutes from './routes.mjs';
 
+import {Server} from 'socket.io'
+import { instrument } from '@socket.io/admin-ui';  
+
 // Initialise Express instance
 const app = express();
+
+// socket.io stuff
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
+const io = new Server(3005, {
+  cors: {
+    origin: ['http://localhost:3006', "https://admin.socket.io"],
+    credentials: true,
+  },
+});
+
+const CLIENT_TO_SERVER_MESSAGE = "client-to-server-message";
+const SERVER_TO_CLIENT_MESSAGE = "server-to-client-message";
+const JOIN_ROOM = "join-room";
+
+
+io.on('connection', socket => {
+  
+  console.log("user is connected: " + socket.id)
+
+  // RECEIVE MESSAGE FROM CLIENT
+  socket.on(CLIENT_TO_SERVER_MESSAGE, (message, room) => {
+    // console.log("room: \n")
+    // console.log( room)
+    // console.log("message from client: ")
+    // console.log(message)
+
+    if (room) {
+      // console.log("sending message to room:")
+      // console.log(room)
+
+      socket.to(room).emit(SERVER_TO_CLIENT_MESSAGE, message)
+    }
+    
+  })
+
+  // // JOIN ROOM
+  socket.on(JOIN_ROOM, room => {
+    console.log("joining room:");
+    console.log(room);
+    socket.join(room)
+    socket.to(room).emit(JOIN_ROOM)
+  })
+})
+
+instrument(io, { auth: false })
+
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
+
 // Set the Express view engine to expect EJS templates
 app.set('view engine', 'ejs');
 // Bind cookie parser middleware to parse cookies in requests
@@ -54,5 +107,5 @@ if (env === 'development') {
 bindRoutes(app);
 
 // Set Express to listen on the given port
-const PORT = process.env.PORT || 3004;
+const PORT = process.env.PORT || 3006;
 app.listen(PORT);
