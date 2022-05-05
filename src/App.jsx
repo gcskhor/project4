@@ -2,7 +2,7 @@
 /* eslint-disable spaced-comment */
 /* eslint-disable react/prop-types */
 /* eslint-disable quotes */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, TextField, ThemeProvider, createTheme } from "@mui/material";
 
 // PLACES AUTOCOMPLETE
@@ -30,11 +30,20 @@ const theme = createTheme({
 });
 
 export default function App() {
-  const [loggedInUser, setLoggedInUser] = useState(null); // set to "" for no login
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
-  const [selectedRestaurant, setSelectedRestaurant] = useState(); // set to "{}" for no restaurant
-  //"69 some road, test-restaurant, singapore"
+  const [selectedRestaurant, setSelectedRestaurant] = useState();
   const [checkedIn, setCheckedIn] = useState(false);
+
+  // RETRIEVE SELECTED RESTAURANT FROM LOCALSTORAGE ON MOUNT
+  useEffect(() => {
+    const restaurantFromStorage = localStorage.getItem("selectedRestaurant");
+
+    console.log(JSON.parse(restaurantFromStorage));
+
+    restaurantFromStorage &&
+      setSelectedRestaurant(JSON.parse(restaurantFromStorage));
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>

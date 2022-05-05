@@ -58,7 +58,7 @@ export default function SignupModal({ setTooltipName }) {
     const signupDetails = {
       email: email,
       username: username,
-      telegram: telegramHandle,
+      telegram_handle: telegramHandle,
       password: password,
     };
 

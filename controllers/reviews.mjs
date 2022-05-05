@@ -30,8 +30,6 @@ export default function initReviewsController(db) {
     try {
       console.log('\x1b[36m%s\x1b[0m', 'getRestaurantReviews start');
 
-      console.log(req.body);
-
       const restaurant = req.body;
       const { id } = restaurant;
 
@@ -44,8 +42,6 @@ export default function initReviewsController(db) {
           nested: false,
         },
       });
-
-      console.log(reviews);
 
       const filteredReviews = [];
 

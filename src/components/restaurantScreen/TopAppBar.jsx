@@ -12,46 +12,8 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 const TopAppBar = ({ setSelectedRestaurant }) => {
   const handleBackButton = () => {
     setSelectedRestaurant(null);
+    localStorage.removeItem("selectedRestaurant");
   };
-
-  // return (
-  //   <AppBar position="static">
-  //     <Container maxWidth="xl">
-  //       <Toolbar disableGutters>
-  //         <Typography
-  //           variant="h6"
-  //           noWrap
-  //           component="div"
-  //           sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-  //         >
-  //           whatSUP
-  //         </Typography>
-
-  //         <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-  //           <IconButton
-  //             size="large"
-  //             aria-label="account of current user"
-  //             aria-controls="menu-appbar"
-  //             aria-haspopup="true"
-  //             onClick={handleBackButton}
-  //             color="inherit"
-  //           >
-  //             <ArrowBackIosNewIcon />
-  //           </IconButton>
-  //         </Box>
-
-  //         <Typography
-  //           variant="h6"
-  //           noWrap
-  //           component="div"
-  //           sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
-  //         >
-  //           whatSUP
-  //         </Typography>
-  //       </Toolbar>
-  //     </Container>
-  //   </AppBar>
-  // );
 
   return (
     <Box sx={{ flexGrow: 1 }}>

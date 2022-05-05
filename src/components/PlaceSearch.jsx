@@ -19,8 +19,6 @@ import axios from "axios";
 export default function PlaceSearch({ setSelectedRestaurant }) {
   const [restaurant, setRestaurant] = useState("");
 
-  let restaurantName = "";
-
   const searchOptions = {
     // eslint-disable-next-line no-undef
     location: new google.maps.LatLng(1.3640957742836468, 103.80437940687283),
@@ -30,11 +28,15 @@ export default function PlaceSearch({ setSelectedRestaurant }) {
 
   const handleSelect = async (name) => {
     const results = await geocodeByAddress(name);
-    const { formatted_address } = results[0];
+    const { formatted_address, place_id } = results[0];
+
+    console.log("selecting a place");
+    console.log(results);
 
     const restaurantData = {
       restaurantName: name,
       address: formatted_address,
+      placeId: place_id,
     };
 
     axios.post("/restaurant", restaurantData).then((result) => {
@@ -43,6 +45,9 @@ export default function PlaceSearch({ setSelectedRestaurant }) {
         console.log(result.data);
         // restaurantName = result.data.name;
         setSelectedRestaurant(result.data);
+        localStorage.setItem("selectedRestaurant", JSON.stringify(result.data));
+        // const getItem = localStorage.getItem("selectedRestaurant");
+        // console.log(JSON.parse(getItem));
       }
     });
   };

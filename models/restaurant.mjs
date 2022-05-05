@@ -25,6 +25,10 @@ export default function initRestaurantModel(sequelize, DataTypes) {
         defaultValue: 0,
       },
 
+      place_data: {
+        type: DataTypes.JSON,
+      },
+
       created_at: {
         allowNull: false,
         type: DataTypes.DATE,

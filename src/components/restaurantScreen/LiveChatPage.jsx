@@ -1,3 +1,5 @@
+/* eslint-disable operator-linebreak */
+/* eslint-disable no-else-return */
 /* eslint-disable react/jsx-wrap-multilines */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable react/prop-types */
@@ -10,7 +12,14 @@ import axios from "axios";
 import moment from "moment";
 import React, { useState, useEffect } from "react";
 
-import { Box, TextField, Button, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  TextField,
+  Button,
+  Stack,
+  Typography,
+  Divider,
+} from "@mui/material";
 
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -21,7 +30,6 @@ import Avatar from "@mui/material/Avatar";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 import socket from "../socket.js";
-import { fontSize } from "@mui/system";
 
 const CLIENT_TO_SERVER_MESSAGE = "client-to-server-message";
 const SERVER_TO_CLIENT_MESSAGE = "server-to-client-message";
@@ -112,37 +120,131 @@ export default function LiveChatPage({
     );
   }
 
-  function Messages({ prevChatMessage }) {
+  function OtherMessages({ prevMessage, index }) {
+    const [displayLikes, setDisplayLikes] = useState(false);
+
+    const handleShowLike = (event) => {
+      console.log("handleShowLike");
+      setDisplayLikes(true);
+    };
+
+    const handleHideLike = (event) => {
+      console.log("handleHideLike");
+      setDisplayLikes(false);
+    };
+
+    return (
+      <Box>
+        <ListItem
+          button
+          key={index}
+          onMouseEnter={handleShowLike}
+          onMouseLeave={handleHideLike}
+        >
+          <ListItemAvatar>
+            <Avatar />
+          </ListItemAvatar>
+          <ListItemText
+            primary={prevMessage.username}
+            secondary={
+              <Box>
+                <Box>{prevMessage.message}</Box>
+                <Box>
+                  <Typography
+                    sx={{ display: "inline", fontSize: 11 }}
+                    component="span"
+                    variant="body2"
+                    color="text.secondary"
+                  >
+                    {moment(prevMessage.createdAt).calendar()}
+                  </Typography>
+                  {loggedInUser && displayLikes && <Button>Like</Button>}
+                </Box>
+              </Box>
+            }
+          />
+        </ListItem>
+      </Box>
+    );
+  }
+
+  function YourMessage({ prevMessage, index }) {
+    const [displayLikes, setDisplayLikes] = useState(false);
+
+    const handleShowLike = (event) => {
+      console.log("handleShowLike");
+      setDisplayLikes(true);
+    };
+
+    const handleHideLike = (event) => {
+      console.log("handleHideLike");
+      setDisplayLikes(false);
+    };
+
+    return (
+      <Box>
+        <ListItem
+          button
+          key={index}
+          sx={{ backgroundColor: "rgba(250,227,217,0.5)" }}
+          onMouseEnter={handleShowLike}
+          onMouseLeave={handleHideLike}
+        >
+          <ListItemText
+            sx={{ textAlign: "right" }}
+            primary="You"
+            secondary={
+              <Box>
+                <Box>{prevMessage.message}</Box>
+                <Box>
+                  {loggedInUser && displayLikes && <Button>Like</Button>}
+
+                  <Typography
+                    sx={{
+                      display: "inline",
+                      textAlign: "right",
+                      fontSize: 11,
+                    }}
+                    component="span"
+                    variant="body2"
+                    color="text.secondary"
+                  >
+                    {moment(prevMessage.createdAt).calendar()}
+                  </Typography>
+                </Box>
+              </Box>
+            }
+          />
+          <ListItemAvatar sx={{ ml: 2, mr: 0 }}>
+            <Avatar />
+          </ListItemAvatar>
+        </ListItem>
+        <Divider fullwidth component="li" />
+      </Box>
+    );
+  }
+
+  function Messages() {
     return (
       <Stack spacing={0}>
         <List>
-          {prevChatMessages.map((prevMessage, index) => {
-            return (
-              <ListItem button key={index}>
-                <ListItemAvatar>
-                  <Avatar />
-                </ListItemAvatar>
-                <ListItemText
-                  primary={prevMessage.username}
-                  secondary={
-                    <Box>
-                      <Box>{prevMessage.message}</Box>
-                      <Box>
-                        <Typography
-                          sx={{ display: "inline", fontSize: 11 }}
-                          component="span"
-                          variant="body2"
-                          color="text.secondary"
-                        >
-                          {moment(prevMessage.createdAt).calendar()}
-                        </Typography>
-                      </Box>
-                    </Box>
-                  }
-                />
-              </ListItem>
-            );
-          })}
+          {loggedInUser &&
+            prevChatMessages.map((prevMessage, index) => {
+              console.log(prevMessage);
+              console.log(loggedInUser);
+              if (prevMessage.username !== loggedInUser.username) {
+                return (
+                  <OtherMessages prevMessage={prevMessage} index={index} />
+                );
+              } else {
+                return <YourMessage prevMessage={prevMessage} index={index} />;
+              }
+            })}
+
+          {!loggedInUser &&
+            prevChatMessages.map((prevMessage, index) => {
+              return <OtherMessages prevMessage={prevMessage} index={index} />;
+            })}
         </List>
       </Stack>
     );

@@ -1,4 +1,9 @@
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable spaced-comment */
+/* eslint-disable camelcase */
 import jsSHA from 'jssha';
+import axios from 'axios';
+import { updatesUrl } from '../telebot.mjs';
 
 const SALT = 'whatSUP_!!1!0_0';
 const ERROR = 'error';
@@ -55,7 +60,7 @@ export default function initUserController(db) {
       console.log('\x1b[36m%s\x1b[0m', 'signup start');
       console.log(req.body);
       const {
-        email, password, username, telegram,
+        email, password, username, telegram_handle,
       } = req.body;
       const hashedPassword = generateHash(password);
 
@@ -69,11 +74,54 @@ export default function initUserController(db) {
         const newUser = await db.User.create({
           email,
           username,
-          telegram,
+          telegram_handle,
           password: hashedPassword,
         });
 
         console.log(newUser);
+
+        /////////////////////////////////////////////
+        // TELEGRAM SENDMESSAGE ON SUCCESSFUL SIGNUP
+
+        if (newUser) {
+          await axios.get(updatesUrl)
+            .then((response) => {
+              console.log(response.data);
+              let telegramId = '';
+
+              for (const el of response.data.result) {
+                if (el.message.chat.username === telegram_handle) {
+                  console.log('found');
+                  console.log(el.message.chat.id);
+                  telegramId = el.message.chat.id;
+                  break;
+                }
+              }
+
+              if (!telegramId) {
+                return;
+              }
+
+              return telegramId;
+            })
+            .then((response) => {
+              db.User.update({
+                telegram_id: response,
+              },
+              {
+                where: {
+                  id: newUser.dataValues.id,
+                },
+              });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+
+        /////////////////////////////////////////////
+        /////////////////////////////////////////////
+
         res.send(SUCCESS);
         console.log('\x1b[36m%s\x1b[0m', 'signup end');
       }

@@ -1,4 +1,7 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-unused-expressions */
+import telegramNotify from '../telebot.mjs';
+
 const ERROR = 'error';
 
 export default function initMessagesController(db) {
@@ -16,6 +19,23 @@ export default function initMessagesController(db) {
         message,
         user_id: userId,
         restaurant_id: restaurantId,
+      });
+
+      // QUERY DB USERS TABLE IF ANY PEOPLE ARE CHECKED-IN TO THAT RESTAURANT.
+      const checkedInUsers = await db.User.findAll({
+        where: {
+          restaurant_id: restaurantId,
+        },
+      });
+
+      // SEND A TELEGRAM MESSAGE TO ALL USERS IN THAT RESTAURANT
+      checkedInUsers.forEach((user) => {
+        console.log(user.dataValues);
+        const { telegram_id } = user.dataValues;
+
+        const messageToSend = `<i>${username} posted in <b>${restaurant.name}</b>:</i>\n\n${message}`;
+
+        telegram_id && telegramNotify(telegram_id, messageToSend);
       });
 
       console.log('\x1b[36m%s\x1b[0m', 'sendMessage end');
@@ -47,8 +67,6 @@ export default function initMessagesController(db) {
         ],
       });
 
-      // console.log(messages);
-
       const filteredMessages = [];
 
       messages.forEach((message) => {
@@ -59,7 +77,6 @@ export default function initMessagesController(db) {
         };
 
         filteredMessages.push(filteredMessage);
-        // console.log('\x1b[36m%s\x1b[0m', filteredMessage);
       });
 
       res.send({ messages: filteredMessages });

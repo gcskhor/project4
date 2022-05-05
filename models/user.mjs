@@ -32,7 +32,11 @@ export default function initUserModel(sequelize, DataTypes) {
         type: DataTypes.TEXT,
       },
 
-      telegram: {
+      telegram_handle: {
+        type: DataTypes.TEXT,
+      },
+
+      telegram_id: {
         type: DataTypes.TEXT,
       },
 

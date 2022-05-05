@@ -27,7 +27,6 @@ export default function TitleScreen({
   // ON LOG IN, CHECK THE USER'S CHECKED IN RESTAURANT
   useEffect(() => {
     setCheckedInRestaurantData(null);
-    console.log(loggedInUser);
     if (loggedInUser && loggedInUser.restaurantId) {
       axios
         .post("/get-checked-in-restaurant", {

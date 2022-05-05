@@ -27,6 +27,11 @@ export default function initMessageModel(sequelize, DataTypes) {
         },
       },
 
+      likes: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+      },
+
       message: {
         allowNull: false,
         type: DataTypes.TEXT,

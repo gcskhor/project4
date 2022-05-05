@@ -14,6 +14,7 @@ import CheckInSwitch from "./restaurantScreen/CheckInSwitch.jsx";
 import PlaceSearch from "./PlaceSearch.jsx";
 import TopAppBar from "./restaurantScreen/TopAppBar.jsx";
 import ReviewPage from "./restaurantScreen/ReviewPage.jsx";
+import InfoPage from "./restaurantScreen/InfoPage.jsx";
 import { testeraunt2 } from "../App.jsx";
 
 // SOCKET STUFF //////////////////////////////////////////////////
@@ -132,7 +133,7 @@ export default function RestaurantScreen({
   const getActiveTab = () => {
     switch (tabIndex) {
       case 0: // INFO
-        return <div>hi 1</div>;
+        return <InfoPage selectedRestaurant={selectedRestaurant} />;
       case 1: // REVIEWS
         return (
           <ReviewPage

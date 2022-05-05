@@ -18,6 +18,10 @@ module.exports = {
         type: Sequelize.TEXT,
       },
 
+      place_data: {
+        type: Sequelize.JSON,
+      },
+
       visited_count: {
         allowNull: false,
         type: Sequelize.INTEGER,
@@ -66,7 +70,11 @@ module.exports = {
         type: Sequelize.TEXT,
       },
 
-      telegram: {
+      telegram_handle: {
+        type: Sequelize.TEXT,
+      },
+
+      telegram_id: {
         type: Sequelize.TEXT,
       },
 
@@ -156,6 +164,10 @@ module.exports = {
           model: 'users',
           key: 'id',
         },
+      },
+
+      likes: {
+        type: Sequelize.INTEGER,
       },
 
       message: {

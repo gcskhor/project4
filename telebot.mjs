@@ -1,11 +1,16 @@
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable camelcase */
 import axios from 'axios';
 
-const BOT_TOKEN = '5375132630:AAHrGReDwWA0QfB9CqUus4ae927NLiP2VKo';
+// const BOT_TOKEN = '5375132630:AAHrGReDwWA0QfB9CqUus4ae927NLiP2VKo';
 
-const updatesUrl = `https://api.telegram.org/bot${BOT_TOKEN}/getUpdates?allowed_updates=["message"]`;
+const WHATSUP_BOT_TOKEN = '5321368970:AAGa2m9egBOy0BR4WP8R-T2VQfA-i9IyzuI';
 
-function notify(userId, message) {
-  const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${userId}&text=${message}`;
+export const updatesUrl = `https://api.telegram.org/bot${WHATSUP_BOT_TOKEN}/getUpdates?allowed_updates=["message"]`;
+
+export default function telegramNotify(userId, message) {
+  const url = `https://api.telegram.org/bot${WHATSUP_BOT_TOKEN}/sendMessage?chat_id=${userId}&text=${message}&parse_mode=html`;
 
   axios.get(url)
     .then((response) => {
@@ -19,17 +24,17 @@ function notify(userId, message) {
 
 // // Example
 const gerald_id = '200224220';
-const vernessa_id = 114679229;
-notify(gerald_id, 'WHADDUP');
-// notify(vernessa_id, "rich bb!!!!!!!")
+// const vernessa_id = 114679229;
+// notify(gerald_id, 'WHADDUP');
 
-axios.get(updatesUrl)
-  .then((response) => {
-    // console.log(response.data);
-    response.data.result.forEach((element) => {
-      console.log(element);
-    });
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+// axios.get(updatesUrl)
+//   .then((response) => {
+//     console.log(response.data);
+
+//     for (const el of response.data.result) {
+//       console.log(el.message);
+//     }
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
