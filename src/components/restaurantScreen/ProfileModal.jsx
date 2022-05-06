@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import LoginModal from "../shared/LoginModal.jsx";
 import LogoutModal from "../shared/LogoutModal.jsx";
+import RewardsModal from "../shared/RewardsModal.jsx";
 
 // const style = {
 //   position: "absolute",
@@ -48,6 +49,7 @@ export default function ProfileModal({
   const [open, setOpen] = useState(true);
   const [loggingOutModal, setLoggingOutModal] = useState(false);
   const [loggingInModal, setLoggingInModal] = useState(false);
+  const [rewardsModal, setRewardsModal] = useState(false);
 
   const handleClose = () => {
     setOpen(false);
@@ -64,6 +66,19 @@ export default function ProfileModal({
         >
           YOUR USERNAME
         </Typography>
+
+        {/* REWARDS */}
+        <Button
+          fullWidth
+          type="submit"
+          variant="contained"
+          color="secondary"
+          size="large"
+          sx={{ mt: 1, height: "50px" }}
+          onClick={() => setRewardsModal(true)}
+        >
+          Rewards
+        </Button>
 
         {/* EDIT PROFILE */}
         <Button
@@ -105,7 +120,12 @@ export default function ProfileModal({
         >
           Back
         </Button>
-
+        {rewardsModal && (
+          <RewardsModal
+            loggedInUser={loggedInUser}
+            setLoggedInUser={setLoggedInUser}
+          />
+        )}
         {loggingOutModal && <LogoutModal setLoggedInUser={setLoggedInUser} />}
       </div>
     );

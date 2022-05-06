@@ -5,12 +5,14 @@ import initRestarauntController from './controllers/restaurants.mjs';
 import initUserController from './controllers/users.mjs';
 import initMessagesController from './controllers/messages.mjs';
 import initReviewsController from './controllers/reviews.mjs';
+import initRewardsController from './controllers/rewards.mjs';
 
 export default function routes(app) {
   const RestaurantController = initRestarauntController(db);
   const UserController = initUserController(db);
   const MessageController = initMessagesController(db);
   const ReviewController = initReviewsController(db);
+  const RewardsController = initRewardsController(db);
 
   app.get('/', (request, response) => {
     response.sendFile(resolve('dist', 'main.html'));
@@ -27,7 +29,13 @@ export default function routes(app) {
 
   app.post('/send-message', MessageController.sendMessage);
   app.post('/restaurant-messages', MessageController.getRestaurantMessages);
+  app.get('/like-message/:id', MessageController.likeMessage);
 
   app.post('/restaurant-reviews', ReviewController.getRestaurantReviews);
   app.post('/reviews/submit', ReviewController.submitReview);
+
+  app.get('/rewards', RewardsController.getRewards);
+  app.get('/rewards/likes/:id', MessageController.getMessageLikes);
+  app.get('/rewards/visits/:id', UserController.getVisits);
+  app.get('/rewards/reviews/:id', ReviewController.getUserReviews);
 }

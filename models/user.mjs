@@ -48,6 +48,10 @@ export default function initUserModel(sequelize, DataTypes) {
         },
       },
 
+      visited: {
+        type: DataTypes.INTEGER,
+      },
+
       created_at: {
         allowNull: false,
         type: DataTypes.DATE,

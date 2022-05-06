@@ -86,6 +86,10 @@ module.exports = {
         },
       },
 
+      visited: {
+        type: Sequelize.INTEGER,
+      },
+
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -129,6 +133,10 @@ module.exports = {
       review: {
         allowNull: false,
         type: Sequelize.TEXT,
+      },
+
+      likes: {
+        type: Sequelize.INTEGER,
       },
 
       created_at: {

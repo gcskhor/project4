@@ -42,22 +42,21 @@ export default function LoginModal({ setTooltipName, setLoggedInUser }) {
       password: password,
     };
 
-    console.log(loginDetails);
-
     axios
       .post("/login", loginDetails)
       .then((res) => {
         console.log("successful login");
-        console.log(res);
-        const { id, email, username, restaurantId } = res.data;
+        console.log(res.data);
+        const { id, email, username, restaurantId, rewards } = res.data;
+
         const userData = {
           id: id,
           email: email,
           username: username,
           restaurantId: restaurantId,
+          rewards: rewards,
         };
 
-        console.log(userData);
         setLoggedInUser(userData);
         handleClose();
       })

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable spaced-comment */
 /* eslint-disable camelcase */
@@ -28,6 +29,12 @@ export default function initUserController(db) {
           email,
           password: hashedPassword,
         },
+        include: [
+          {
+            model: db.Reward,
+            as: 'rewards',
+          },
+        ],
       });
 
       if (!user) {
@@ -37,14 +44,14 @@ export default function initUserController(db) {
       else {
         console.log(user);
         const {
-          id, username, email, restaurant_id,
+          id, username, email, restaurant_id, rewards,
         } = user.dataValues;
 
         res.cookie(`userId=${id};`);
         res.cookie(`login=${generateHash(id)};`);
 
         res.send({
-          id, username, email, restaurantId: restaurant_id,
+          id, username, email, restaurantId: restaurant_id, rewards,
         });
       }
 
@@ -77,8 +84,6 @@ export default function initUserController(db) {
           telegram_handle,
           password: hashedPassword,
         });
-
-        console.log(newUser);
 
         /////////////////////////////////////////////
         // TELEGRAM SENDMESSAGE ON SUCCESSFUL SIGNUP
@@ -210,7 +215,41 @@ export default function initUserController(db) {
     }
   };
 
+  const getVisits = async (req, res) => {
+    try {
+      console.log('\x1b[36m%s\x1b[0m', 'getVisits start');
+
+      // console.log(req.params);
+      const { id } = req.params;
+
+      const user = await db.User.findOne({
+        where: {
+          id,
+        },
+      });
+
+      // console.log(user.dataValues.visited);
+
+      const { visited } = user.dataValues;
+
+      // if (!visited) {
+      //   res.send({ visited: 0 });
+      // } else {
+      //   res.send({ visited });
+      // }
+
+      !visited
+        ? res.send({ visited: 0 })
+        : res.send({ visited });
+
+      console.log('\x1b[36m%s\x1b[0m', 'getVisits end');
+    } catch (err) {
+      console.log(err);
+      console.log('\x1b[36m%s\x1b[0m', 'getVisits error');
+    }
+  };
+
   return {
-    login, signup, logout, checkIn, checkOut,
+    login, signup, logout, checkIn, checkOut, getVisits,
   };
 }

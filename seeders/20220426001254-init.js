@@ -36,7 +36,7 @@ module.exports = {
       {
         name: '69 some road, test-restaurant, singapore',
         address: '69 some road',
-        visited_count: 0,
+        visited_count: 5,
         place_data: JSON.stringify(adamData),
         created_at: new Date(),
         updated_at: new Date(),
@@ -52,7 +52,7 @@ module.exports = {
       {
         name: 'Adam Road, Adam Road Food Centre, Singapore',
         address: '2 Adam Rd, Singapore 289876',
-        visited_count: 0,
+        visited_count: 12,
         place_data: JSON.stringify(adamData),
         created_at: new Date(),
         updated_at: new Date(),
@@ -92,6 +92,7 @@ module.exports = {
         user_id: 1,
         title: 'AmAzIng :O',
         review: 'Wow that was so good, gr8 stuff bro. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?',
+        likes: 0,
         created_at: new Date(),
         updated_at: new Date(),
       },
@@ -100,6 +101,7 @@ module.exports = {
         user_id: 2,
         title: 'Best place ever',
         review: 'Duis mollis, est non commodo luctus, nisi erat porttitor ligula. Duis mollis, est non commodo luctus, nisi erat porttitor ligula.Duis mollis, est non commodo luctus, nisi erat porttitor ligula. Duis mollis, est non commodo luctus, nisi erat porttitor ligula.Duis mollis, est non commodo luctus, nisi erat porttitor ligula. Duis mollis, est non commodo luctus, nisi erat porttitor ligula.',
+        likes: 0,
         created_at: new Date(),
         updated_at: new Date(),
       },
@@ -119,7 +121,7 @@ module.exports = {
       {
         restaurant_id: 3,
         user_id: 3,
-        likes: 0,
+        likes: 6,
         message: 'Queued up for 1hr bro, want me to dabao for you?',
         created_at: new Date(),
         updated_at: new Date(),
@@ -127,6 +129,49 @@ module.exports = {
     ];
 
     await queryInterface.bulkInsert('messages', seedMessages);
+
+    const seedRewards = [
+      {
+        name: 'SUPerb Helper',
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        name: 'SUPer Explorer',
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        name: 'Reviewer SUPreme',
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+    ];
+
+    await queryInterface.bulkInsert('rewards', seedRewards);
+
+    const seedUserRewards = [
+      {
+        user_id: 1,
+        reward_id: 1,
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        user_id: 2,
+        reward_id: 2,
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        user_id: 3,
+        reward_id: 3,
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+    ];
+
+    await queryInterface.bulkInsert('user_rewards', seedUserRewards);
   },
 
   down: async (queryInterface, Sequelize) => {

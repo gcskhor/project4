@@ -52,7 +52,7 @@ export default function RestaurantScreen({
 
   // UPDATE SELECTED RESTAURANT
   useEffect(() => {
-    console.log(`useEffect at restaurantScreen: ${selectedRestaurant}`);
+    // console.log(`useEffect at restaurantScreen: ${selectedRestaurant}`);
 
     // socket.on("connect", () => {
     //   console.log(`you connected with id: ${socket.id}`);
@@ -76,7 +76,6 @@ export default function RestaurantScreen({
     axios
       .post("/restaurant-reviews", selectedRestaurant)
       .then((response) => {
-        console.log(response);
         setRestaurantReviews(response.data);
       })
       .catch((err) => {

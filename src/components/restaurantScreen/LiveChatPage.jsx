@@ -121,16 +121,34 @@ export default function LiveChatPage({
   }
 
   function OtherMessages({ prevMessage, index }) {
-    const [displayLikes, setDisplayLikes] = useState(false);
+    const [displayLikeButton, setDisplayLikeButton] = useState(false);
+    const [liked, setLiked] = useState(false);
+    const [likes, setLikes] = useState(prevMessage.likes);
+
+    const clickLikeButton = () => {
+      // ADD 1 TO LIKE COUNT VARIABLE
+      setLikes((numLikes) => numLikes + 1);
+
+      // SET LIKED TO TRUE SO THAT USER CAN NO LONGER LIKE IT.
+      setLiked(true);
+
+      // AXIOS POST TO +1 IN DB LIKES
+      axios
+        .get(`/like-message/${prevMessage.id}`)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
 
     const handleShowLike = (event) => {
-      console.log("handleShowLike");
-      setDisplayLikes(true);
+      setDisplayLikeButton(true);
     };
 
     const handleHideLike = (event) => {
-      console.log("handleHideLike");
-      setDisplayLikes(false);
+      setDisplayLikeButton(false);
     };
 
     return (
@@ -158,7 +176,12 @@ export default function LiveChatPage({
                   >
                     {moment(prevMessage.createdAt).calendar()}
                   </Typography>
-                  {loggedInUser && displayLikes && <Button>Like</Button>}
+                  {loggedInUser && !liked && displayLikeButton && (
+                    <Button variant="outlined" onClick={clickLikeButton}>
+                      Like
+                    </Button>
+                  )}
+                  {likes > 0 && <Box>{"likes: " + likes}</Box>}
                 </Box>
               </Box>
             }
@@ -169,26 +192,14 @@ export default function LiveChatPage({
   }
 
   function YourMessage({ prevMessage, index }) {
-    const [displayLikes, setDisplayLikes] = useState(false);
-
-    const handleShowLike = (event) => {
-      console.log("handleShowLike");
-      setDisplayLikes(true);
-    };
-
-    const handleHideLike = (event) => {
-      console.log("handleHideLike");
-      setDisplayLikes(false);
-    };
+    const [likes, setLikes] = useState(prevMessage.likes);
 
     return (
       <Box>
         <ListItem
           button
           key={index}
-          sx={{ backgroundColor: "rgba(250,227,217,0.5)" }}
-          onMouseEnter={handleShowLike}
-          onMouseLeave={handleHideLike}
+          sx={{ backgroundColor: "rgba(250,227,217,0.4)" }}
         >
           <ListItemText
             sx={{ textAlign: "right" }}
@@ -197,7 +208,7 @@ export default function LiveChatPage({
               <Box>
                 <Box>{prevMessage.message}</Box>
                 <Box>
-                  {loggedInUser && displayLikes && <Button>Like</Button>}
+                  {likes > 0 && <Box>{"likes: " + likes}</Box>}
 
                   <Typography
                     sx={{
@@ -231,7 +242,6 @@ export default function LiveChatPage({
           {loggedInUser &&
             prevChatMessages.map((prevMessage, index) => {
               console.log(prevMessage);
-              console.log(loggedInUser);
               if (prevMessage.username !== loggedInUser.username) {
                 return (
                   <OtherMessages prevMessage={prevMessage} index={index} />
@@ -256,6 +266,8 @@ export default function LiveChatPage({
       receiveMessage(m);
     });
   }, [prevChatMessages]);
+
+  console.log(prevChatMessages);
 
   return (
     <Box sx={style}>

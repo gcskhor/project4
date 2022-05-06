@@ -35,11 +35,13 @@ export default function App() {
   const [selectedRestaurant, setSelectedRestaurant] = useState();
   const [checkedIn, setCheckedIn] = useState(false);
 
+  console.log(loggedInUser);
+
   // RETRIEVE SELECTED RESTAURANT FROM LOCALSTORAGE ON MOUNT
   useEffect(() => {
     const restaurantFromStorage = localStorage.getItem("selectedRestaurant");
 
-    console.log(JSON.parse(restaurantFromStorage));
+    // console.log(JSON.parse(restaurantFromStorage));
 
     restaurantFromStorage &&
       setSelectedRestaurant(JSON.parse(restaurantFromStorage));

@@ -10,7 +10,6 @@ import { Box, TextField, Button, Stack, Typography } from "@mui/material";
 import ImageDisplay from "./ImageDisplay.jsx";
 
 export default function InfoPage({ selectedRestaurant }) {
-  console.log(selectedRestaurant);
   const { address } = selectedRestaurant;
   const {
     business_status,
@@ -21,8 +20,6 @@ export default function InfoPage({ selectedRestaurant }) {
     photos,
     rating,
   } = selectedRestaurant.place_data;
-
-  console.log(opening_hours);
 
   return (
     <Box>

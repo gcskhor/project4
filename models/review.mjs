@@ -35,6 +35,10 @@ export default function initReviewModel(sequelize, DataTypes) {
         type: DataTypes.TEXT,
       },
 
+      likes: {
+        type: DataTypes.INTEGER,
+      },
+
       created_at: {
         allowNull: false,
         type: DataTypes.DATE,

@@ -37,6 +37,9 @@ export default function initReviewsController(db) {
         where: {
           restaurant_id: id,
         },
+        order: [
+          ['id', 'ASC'],
+        ],
         include: {
           model: db.User,
           nested: false,
@@ -66,5 +69,31 @@ export default function initReviewsController(db) {
     }
   };
 
-  return { submitReview, getRestaurantReviews };
+  const getUserReviews = async (req, res) => {
+    try {
+      console.log('\x1b[36m%s\x1b[0m', 'getUserReviews start');
+
+      console.log('\x1b[31m', 'stuff');
+
+      console.log(req.params);
+      const { id } = req.params;
+
+      const reviewCount = await db.Review.count({
+        where: {
+          user_id: id,
+        },
+      });
+
+      console.log(reviewCount);
+
+      res.send({ reviews: reviewCount });
+
+      console.log('\x1b[36m%s\x1b[0m', 'getUserReviews end');
+    } catch (err) {
+      console.log('\x1b[31m', 'getUserReviews error');
+      console.log(err);
+    }
+  };
+
+  return { submitReview, getRestaurantReviews, getUserReviews };
 }

@@ -3,8 +3,6 @@
 /* eslint-disable camelcase */
 import axios from 'axios';
 
-// const BOT_TOKEN = '5375132630:AAHrGReDwWA0QfB9CqUus4ae927NLiP2VKo';
-
 const WHATSUP_BOT_TOKEN = '5321368970:AAGa2m9egBOy0BR4WP8R-T2VQfA-i9IyzuI';
 
 export const updatesUrl = `https://api.telegram.org/bot${WHATSUP_BOT_TOKEN}/getUpdates?allowed_updates=["message"]`;
