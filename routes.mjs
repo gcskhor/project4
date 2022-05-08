@@ -35,6 +35,8 @@ export default function routes(app) {
   app.post('/reviews/submit', ReviewController.submitReview);
 
   app.get('/rewards', RewardsController.getRewards);
+  app.post('/rewards/collect', RewardsController.collectRewards);
+
   app.get('/rewards/likes/:id', MessageController.getMessageLikes);
   app.get('/rewards/visits/:id', UserController.getVisits);
   app.get('/rewards/reviews/:id', ReviewController.getUserReviews);

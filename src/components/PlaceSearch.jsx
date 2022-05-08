@@ -77,7 +77,7 @@ export default function PlaceSearch({ setSelectedRestaurant }) {
 
             {suggestions.map((suggestion, index) => {
               const style = {
-                backgroundColor: suggestion.active ? "#bbded6" : "#fff",
+                backgroundColor: suggestion.active ? "whitesmoke" : "#fff",
               };
 
               return (
@@ -86,7 +86,8 @@ export default function PlaceSearch({ setSelectedRestaurant }) {
                   key={`index-${index}`}
                   sx={{
                     p: 3,
-                    border: "1px solid #d9534f",
+                    m: "-1px",
+                    border: "1px solid #2470a0",
                     zIndex: "modal",
                     backgroundColor: "whitesmoke",
                   }}

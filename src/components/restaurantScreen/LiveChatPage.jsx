@@ -10,7 +10,7 @@
 
 import axios from "axios";
 import moment from "moment";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import {
   Box,
@@ -19,6 +19,7 @@ import {
   Stack,
   Typography,
   Divider,
+  Chip,
 } from "@mui/material";
 
 import List from "@mui/material/List";
@@ -30,6 +31,12 @@ import Avatar from "@mui/material/Avatar";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 import socket from "../socket.js";
+
+import {
+  REWARD_LIKES,
+  REWARD_VISITS,
+  REWARD_REVIEWS,
+} from "../shared/RewardsModal.jsx";
 
 const CLIENT_TO_SERVER_MESSAGE = "client-to-server-message";
 const SERVER_TO_CLIENT_MESSAGE = "server-to-client-message";
@@ -52,6 +59,19 @@ export default function LiveChatPage({
 }) {
   const [chatMessage, setChatMessage] = useState("");
 
+  const scrollToBottom = () => {
+    console.log("scrolling to botttom");
+    console.log(document.documentElement.scrollHeight);
+    window.scrollTo({
+      top: document.documentElement.scrollHeight + 1000,
+      behavior: "smooth",
+      /* you can also use 'auto' behaviour 
+         in place of 'smooth' */
+    });
+  };
+
+  console.log(loggedInUser);
+
   // WHEN MESSAGE IS BEING SENT OUT FROM CLIENT
   const sendMessage = () => {
     console.log("sending message");
@@ -61,6 +81,7 @@ export default function LiveChatPage({
       message: chatMessage,
       likes: 0,
       restaurant: selectedRestaurant,
+      user_rewards: loggedInUser.rewards,
     };
 
     const room = selectedRestaurant.name;
@@ -77,6 +98,8 @@ export default function LiveChatPage({
       })
       .catch((error) => console.log(error));
 
+    scrollToBottom();
+
     setPrevChatMessages((prevMessages) => [...prevMessages, newMessage]);
     setChatMessage("");
   };
@@ -89,7 +112,8 @@ export default function LiveChatPage({
     const newMessage = {
       username: message.username,
       message: message.message,
-      likes: 0,
+      likes: message.likes,
+      user_rewards: message.user_rewards,
     };
 
     const copyPrevMessages = [...prevChatMessages];
@@ -151,6 +175,19 @@ export default function LiveChatPage({
       setDisplayLikeButton(false);
     };
 
+    const rewardToColor = (rewardName) => {
+      switch (rewardName) {
+        case REWARD_LIKES:
+          return "primary";
+        case REWARD_VISITS:
+          return "secondary";
+        case REWARD_REVIEWS:
+          return "warning";
+        default:
+          return "secondary";
+      }
+    };
+
     return (
       <Box>
         <ListItem
@@ -163,11 +200,27 @@ export default function LiveChatPage({
             <Avatar />
           </ListItemAvatar>
           <ListItemText
-            primary={prevMessage.username}
+            primary={
+              <Box>
+                {prevMessage.username}
+                <Stack direction="row" spacing={1}>
+                  {prevMessage.user_rewards.map((reward) => {
+                    return (
+                      <Chip
+                        label={reward.name}
+                        size="small"
+                        color={rewardToColor(reward.name)}
+                        variant="outlined"
+                      />
+                    );
+                  })}
+                </Stack>
+              </Box>
+            }
             secondary={
               <Box>
-                <Box>{prevMessage.message}</Box>
-                <Box>
+                <Box mt={2}>{prevMessage.message}</Box>
+                <Box sx={{ position: "relative" }}>
                   <Typography
                     sx={{ display: "inline", fontSize: 11 }}
                     component="span"
@@ -177,11 +230,34 @@ export default function LiveChatPage({
                     {moment(prevMessage.createdAt).calendar()}
                   </Typography>
                   {loggedInUser && !liked && displayLikeButton && (
-                    <Button variant="outlined" onClick={clickLikeButton}>
+                    <Button
+                      variant="outlined"
+                      onClick={clickLikeButton}
+                      sx={{
+                        position: "absolute",
+                        bottom: "95%",
+                        left: "75%",
+                        right: 0,
+                      }}
+                    >
                       Like
                     </Button>
                   )}
-                  {likes > 0 && <Box>{"likes: " + likes}</Box>}
+                  {likes > 0 && (
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{
+                        fontSize: 13,
+                        position: "absolute",
+                        top: "0",
+                        left: "80%",
+                        right: 0,
+                      }}
+                    >
+                      {likes + " likes"}
+                    </Typography>
+                  )}
                 </Box>
               </Box>
             }
@@ -194,6 +270,19 @@ export default function LiveChatPage({
   function YourMessage({ prevMessage, index }) {
     const [likes, setLikes] = useState(prevMessage.likes);
 
+    const rewardToColor = (rewardName) => {
+      switch (rewardName) {
+        case REWARD_LIKES:
+          return "primary";
+        case REWARD_VISITS:
+          return "secondary";
+        case REWARD_REVIEWS:
+          return "warning";
+        default:
+          return "secondary";
+      }
+    };
+
     return (
       <Box>
         <ListItem
@@ -203,9 +292,26 @@ export default function LiveChatPage({
         >
           <ListItemText
             sx={{ textAlign: "right" }}
-            primary="You"
-            secondary={
+            primary={
               <Box>
+                You
+                <Stack direction="row" spacing={1} justifyContent="flex-end">
+                  {prevMessage.user_rewards.map((reward) => {
+                    return (
+                      <Chip
+                        label={reward.name}
+                        size="small"
+                        color={rewardToColor(reward.name)}
+                        variant="outlined"
+                        justifyContent="flex-end"
+                      />
+                    );
+                  })}
+                </Stack>
+              </Box>
+            }
+            secondary={
+              <Box mt={2}>
                 <Box>{prevMessage.message}</Box>
                 <Box>
                   {likes > 0 && <Box>{"likes: " + likes}</Box>}
@@ -241,7 +347,6 @@ export default function LiveChatPage({
         <List>
           {loggedInUser &&
             prevChatMessages.map((prevMessage, index) => {
-              console.log(prevMessage);
               if (prevMessage.username !== loggedInUser.username) {
                 return (
                   <OtherMessages prevMessage={prevMessage} index={index} />
@@ -267,17 +372,37 @@ export default function LiveChatPage({
     });
   }, [prevChatMessages]);
 
-  console.log(prevChatMessages);
-
   return (
-    <Box sx={style}>
-      <Box>
-        {prevChatMessages && <Messages />}
+    <Box>
+      {/* CHAT MESSAGES */}
+      <Box
+        p={2}
+        m={2}
+        mb={16}
+        backgroundColor="whitesmoke"
+        borderRadius={2}
+        boxShadow={20}
+      >
+        {prevChatMessages.length ? (
+          <Messages />
+        ) : (
+          "There are no messages available"
+        )}
+      </Box>
 
+      {/* INPUT BOX */}
+      <Box
+        p={2}
+        mb={7}
+        backgroundColor="whitesmoke"
+        boxShadow={20}
+        sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
+      >
         <TextField
           variant="outlined"
           fullWidth
           multiline
+          size="small"
           color="secondary"
           label="Message"
           value={chatMessage}

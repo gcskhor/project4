@@ -8,7 +8,7 @@ export default function StandardImageList({ selectedRestaurant }) {
   const photosSlice = photos.slice(0, 6); // limit to 6 images
 
   return (
-    <ImageList sx={{ width: 390, height: 300 }} cols={3} rowHeight={140}>
+    <ImageList sx={{ width: "100%", height: "15%" }} cols={3} rowHeight={140}>
       {photosSlice.map((photo) => (
         <ImageListItem key={photo.photo_reference}>
           <img
@@ -25,18 +25,3 @@ export default function StandardImageList({ selectedRestaurant }) {
     </ImageList>
   );
 }
-
-// const itemData = [
-//   {
-//     img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-//     title: "Breakfast",
-//   },
-//   {
-//     img: "https://images.unsplash.com/photo-1551782450-a2132b4ba21d",
-//     title: "Burger",
-//   },
-//   {
-//     img: "https://images.unsplash.com/photo-1522770179533-24471fcdba45",
-//     title: "Camera",
-//   },
-// ];

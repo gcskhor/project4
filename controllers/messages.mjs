@@ -33,6 +33,7 @@ export default function initMessagesController(db) {
       checkedInUsers.forEach((user) => {
         console.log(user.dataValues);
         const { telegram_id } = user.dataValues;
+        console.log(telegram_id);
 
         const messageToSend = `<i>${username} posted in <b>${restaurant.name}</b>:</i>\n\n${message}`;
 

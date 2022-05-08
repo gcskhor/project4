@@ -45,6 +45,7 @@ export default function SubmitReviewModal({
       title: title,
       review: review,
       user: loggedInUser,
+      username: loggedInUser.username,
       restaurant: selectedRestaurant,
     };
 
@@ -59,16 +60,6 @@ export default function SubmitReviewModal({
       .then((res) => {
         console.log("successful review");
         console.log(res);
-        // const { id, email, username, restaurantId } = res.data;
-        // const userData = {
-        //   id: id,
-        //   email: email,
-        //   username: username,
-        //   restaurantId: restaurantId,
-        // };
-
-        // console.log(userData);
-        // setLoggedInUser(userData);
       })
       .catch((error) => {
         console.log("failed login");

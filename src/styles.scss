@@ -1,5 +1,5 @@
 body {
-  background-color: whitesmoke;
+  background-color: pink;
   // margin: 20px;
   // padding: 10px;
   font-family: "Varela Round", sans-serif;
@@ -27,4 +27,8 @@ body {
 .restaurant-name * {
   display: flex;
   justify-content: center;
+}
+
+*::-webkit-scrollbar {
+  display: none;
 }

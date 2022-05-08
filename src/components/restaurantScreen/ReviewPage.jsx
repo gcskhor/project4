@@ -62,13 +62,12 @@ export default function ReviewPage({
                     secondary={
                       <>
                         <Typography
-                          sx={{ display: "inline" }}
+                          sx={{ display: "block" }}
                           component="span"
                           variant="body2"
                           color="text.primary"
                         >
                           {review.username}
-                          {" - "}
                         </Typography>
                         {review.review}
                         <Typography
@@ -119,7 +118,13 @@ export default function ReviewPage({
   };
 
   return (
-    <Box m={1}>
+    <Box
+      p={2}
+      m={2}
+      backgroundColor="whitesmoke"
+      borderRadius={2}
+      boxShadow={20}
+    >
       <SubmitReviewButton />
       <DisplayReviews />
       {submitReviewModal && (

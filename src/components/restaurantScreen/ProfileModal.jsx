@@ -11,6 +11,7 @@ import Modal from "@mui/material/Modal";
 import LoginModal from "../shared/LoginModal.jsx";
 import LogoutModal from "../shared/LogoutModal.jsx";
 import RewardsModal from "../shared/RewardsModal.jsx";
+import SignupModal from "../shared/SignupModal.jsx";
 
 // const style = {
 //   position: "absolute",
@@ -49,6 +50,7 @@ export default function ProfileModal({
   const [open, setOpen] = useState(true);
   const [loggingOutModal, setLoggingOutModal] = useState(false);
   const [loggingInModal, setLoggingInModal] = useState(false);
+  const [signingUpModal, setSigningUpModal] = useState(false);
   const [rewardsModal, setRewardsModal] = useState(false);
 
   const handleClose = () => {
@@ -64,7 +66,7 @@ export default function ProfileModal({
           id="modal-modal-title"
           sx={{ mb: 4 }}
         >
-          YOUR USERNAME
+          {`${loggedInUser.username}'s Profile`}
         </Typography>
 
         {/* REWARDS */}
@@ -158,6 +160,22 @@ export default function ProfileModal({
           Login
         </Button>
 
+        {/* SIGNUP */}
+        <Button
+          fullWidth
+          type="submit"
+          variant="contained"
+          color="secondary"
+          size="large"
+          sx={{ mt: 1, height: "50px" }}
+          onClick={() => {
+            console.log("signup modal");
+            setSigningUpModal(true);
+          }}
+        >
+          Signup
+        </Button>
+
         {/* BACK */}
         <Button
           fullWidth
@@ -172,6 +190,7 @@ export default function ProfileModal({
         </Button>
 
         {loggingInModal && <LoginModal setLoggedInUser={setLoggedInUser} />}
+        {signingUpModal && <SignupModal setLoggedInUser={setLoggedInUser} />}
       </>
     );
   }

@@ -88,8 +88,10 @@ export default function SignupModal({ setTooltipName }) {
             Signup
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            <Box>Follow this link and start our Telegram notification bot:</Box>
+            <a display="block" href="https://t.me/whatSUP_p4_dev_bot">
+              https://t.me/whatSUP_p4_dev_bot
+            </a>
           </Typography>
 
           {/* EMAIL */}

@@ -4,7 +4,7 @@
 /* eslint-disable camelcase */
 import jsSHA from 'jssha';
 import axios from 'axios';
-import { updatesUrl } from '../telebot.mjs';
+import telegramNotify, { updatesUrl } from '../telebot.mjs';
 
 const SALT = 'whatSUP_!!1!0_0';
 const ERROR = 'error';
@@ -21,7 +21,6 @@ export default function initUserController(db) {
   const login = async (req, res) => {
     try {
       console.log('\x1b[36m%s\x1b[0m', 'login start');
-      console.log(req.body);
       const { email, password } = req.body;
       const hashedPassword = generateHash(password);
       const user = await db.User.findOne({
@@ -65,7 +64,7 @@ export default function initUserController(db) {
   const signup = async (req, res) => {
     try {
       console.log('\x1b[36m%s\x1b[0m', 'signup start');
-      console.log(req.body);
+      // console.log(req.body);
       const {
         email, password, username, telegram_handle,
       } = req.body;
@@ -91,6 +90,7 @@ export default function initUserController(db) {
         if (newUser) {
           await axios.get(updatesUrl)
             .then((response) => {
+              console.log('executed axios call to get updates from bot');
               console.log(response.data);
               let telegramId = '';
 
@@ -103,13 +103,15 @@ export default function initUserController(db) {
                 }
               }
 
-              if (!telegramId) {
-                return;
+              if (telegramId) {
+                return telegramId;
               }
-
-              return telegramId;
             })
             .then((response) => {
+              // send message to user to complete signup
+              const messageToSend = 'Thanks for signing up for whatSUP! Registration is all done!';
+              telegramNotify(response, messageToSend);
+
               db.User.update({
                 telegram_id: response,
               },

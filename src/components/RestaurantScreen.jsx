@@ -4,14 +4,13 @@
 /* eslint-disable react/prop-types */
 
 import React, { useState, useEffect } from "react";
-import { Box, ListItem } from "@mui/material";
+import { Box, Divider, ListItem, Paper, Typography } from "@mui/material";
 import axios from "axios";
 import socket from "./socket.js";
 import FixedBottomNavigation from "./restaurantScreen/FixedBottomNavigation.jsx";
 import LiveChatPage from "./restaurantScreen/LiveChatPage.jsx";
 import ProfileModal from "./restaurantScreen/ProfileModal.jsx";
 import CheckInSwitch from "./restaurantScreen/CheckInSwitch.jsx";
-import PlaceSearch from "./PlaceSearch.jsx";
 import TopAppBar from "./restaurantScreen/TopAppBar.jsx";
 import ReviewPage from "./restaurantScreen/ReviewPage.jsx";
 import InfoPage from "./restaurantScreen/InfoPage.jsx";
@@ -41,7 +40,6 @@ export default function RestaurantScreen({
   setCheckedIn,
 }) {
   const [tabIndex, setTabIndex] = useState(0);
-  const [showPlaceSearchInput, setShowPlaceSearchInput] = useState(false);
   const [prevChatMessages, setPrevChatMessages] = useState([
     testMessage,
     testMessage2,
@@ -124,11 +122,6 @@ export default function RestaurantScreen({
     loggedInUser ? restaurantCheckInOut() : null;
   }, [checkedIn]);
 
-  const handleChangeRestaurant = (event) => {
-    // setSelectedRestaurant(testeraunt2);
-    setShowPlaceSearchInput(true);
-  };
-
   const getActiveTab = () => {
     switch (tabIndex) {
       case 0: // INFO
@@ -168,33 +161,71 @@ export default function RestaurantScreen({
   };
 
   return (
-    <div>
-      <TopAppBar setSelectedRestaurant={setSelectedRestaurant} />
-      <Box button fullWidth boxShadow={5} className="restaurant-name">
-        <Box>
-          <ListItem button onClick={handleChangeRestaurant}>
-            <div className="header-text">{name}</div>
-          </ListItem>
-          <div>{vicinity}</div>
-        </Box>
-        {/* <PlaceSearch /> */}
+    <Box>
+      <TopAppBar
+        setSelectedRestaurant={setSelectedRestaurant}
+        sx={{ position: "relative", zIndex: 1000 }}
+      />
+      <Paper elevation={3}>
+        <Box fullWidth boxShadow={5} mt={5} p={2} backgroundColor="whitesmoke">
+          <Box>
+            <Typography
+              variant="h4"
+              display="block"
+              fontFamily="Lilita One"
+              elevation={5}
+              m={1}
+              align="center"
+            >
+              {name}
+            </Typography>
+            <Typography
+              variant="body1"
+              display="block"
+              component="div"
+              m={1}
+              align="center"
+            >
+              {vicinity}
+            </Typography>
 
-        {loggedInUser && (
-          <CheckInSwitch
-            checkedIn={checkedIn}
-            setCheckedIn={setCheckedIn}
-            restaurantCheckInOut={restaurantCheckInOut}
-          />
-        )}
-        <hr />
-        <div>
-          There are 3 users that you can say whatSUP to at this location.
-        </div>
-      </Box>
+            {loggedInUser && (
+              <CheckInSwitch
+                checkedIn={checkedIn}
+                setCheckedIn={setCheckedIn}
+                restaurantCheckInOut={restaurantCheckInOut}
+                justifyContent="center"
+              />
+            )}
+          </Box>
+
+          {/* <div>
+            There are 3 users that you can say whatSUP to at this location.
+          </div> */}
+        </Box>
+      </Paper>
 
       {getActiveTab()}
 
+      {/* <Box>
+        filler text Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+        Aliquam odit repellendus accusamus numquam ullam delectus repellat
+        suscipit, praesentium harum quaerat molestiae optio provident ipsam
+        natus eveniet ut quisquam rerum corrupti? Lorem ipsum dolor sit amet,
+        consectetur adipisicing elit. Eligendi dolorum cumque quibusdam quaerat
+        distinctio vero quos, quo, eos porro iusto, voluptates quis. Voluptas
+        ipsam, quasi tempore corrupti quas obcaecati? Sit accusamus vero vel,
+        enim incidunt culpa amet suscipit eligendi alias maxime, architecto
+        nihil veniam nesciunt placeat quisquam totam illo velit id eveniet,
+        fugit soluta? Voluptate similique magni nesciunt dolore ipsam ea
+        voluptatem nemo temporibus. Dolorum, asperiores blanditiis! Dolor
+        numquam fuga non quas quia possimus ut! Laboriosam dolorum ullam earum
+        vel sit quibusdam ea maxime similique accusantium iste, error porro
+        temporibus expedita modi recusandae, voluptate ipsa fuga harum! A,
+        facere voluptates!
+      </Box> */}
+
       <FixedBottomNavigation tabIndex={tabIndex} setTabIndex={setTabIndex} />
-    </div>
+    </Box>
   );
 }

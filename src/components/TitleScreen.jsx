@@ -3,13 +3,13 @@
 /* eslint-disable react/prop-types */
 
 import React, { useState, useEffect } from "react";
+import { Box, Paper } from "@mui/material";
 import axios from "axios";
 import LoginModal from "./shared/LoginModal.jsx";
 import SignupModal from "./shared/SignupModal.jsx";
 import LogoutModal from "./shared/LogoutModal.jsx";
 import PlaceSearch from "./PlaceSearch.jsx";
 import SpeedDialTooltipOpen from "./titleScreen/SpeedDialTooltip.jsx";
-import { Box } from "@mui/material";
 
 const LOGIN = "Login";
 const SIGNUP = "Signup";
@@ -74,15 +74,23 @@ export default function TitleScreen({
   };
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box
+      sx={{
+        p: 5,
+        m: 2,
+        backgroundColor: "whitesmoke",
+        borderRadius: 3,
+        boxShadow: 15,
+      }}
+    >
       <h2 className="logo">whatSUP</h2>
       {loggedInUser && <h4>Welcome back, {loggedInUser.username}</h4>}
       {checkedInRestaurantData && (
         <h4>You are checked into {checkedInRestaurantData.name}</h4>
       )}
       <p>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic iusto
-        tempora ratione ab quasi veniam molestiae?
+        Looking for a place to find some good food? Search for a restaurant
+        below.
       </p>
       <PlaceSearch setSelectedRestaurant={setSelectedRestaurant} />
       {getActiveTooltip()}

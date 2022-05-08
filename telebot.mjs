@@ -10,6 +10,8 @@ export const updatesUrl = `https://api.telegram.org/bot${WHATSUP_BOT_TOKEN}/getU
 export default function telegramNotify(userId, message) {
   const url = `https://api.telegram.org/bot${WHATSUP_BOT_TOKEN}/sendMessage?chat_id=${userId}&text=${message}&parse_mode=html`;
 
+  console.log('notifiying user on telegram');
+
   axios.get(url)
     .then((response) => {
       console.log(JSON.stringify(response.data));
@@ -23,7 +25,7 @@ export default function telegramNotify(userId, message) {
 // // Example
 const gerald_id = '200224220';
 // const vernessa_id = 114679229;
-// notify(gerald_id, 'WHADDUP');
+// telegramNotify(gerald_id, 'WHADDUP');
 
 // axios.get(updatesUrl)
 //   .then((response) => {
