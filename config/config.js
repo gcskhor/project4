@@ -1,9 +1,9 @@
 module.exports = {
   development: {
-    username: 'gcskhor',
+    username: process.env.USERNAME,
     password: null,
-    database: 'project4_development',
-    host: '127.0.0.1',
+    database: 'whatsup_development',
+    host: process.env.HOST,
     dialect: 'postgres',
   },
   production: {
