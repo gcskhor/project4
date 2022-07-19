@@ -16,7 +16,9 @@ export default function FixedBottomNavigation({ tabIndex, setTabIndex }) {
   return (
     <Box sx={{ pb: 7 }}>
       <Paper
-        sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
+        sx={{
+          position: "fixed", bottom: 0, left: 0, right: 0,
+        }}
         elevation={3}
       >
         <BottomNavigation

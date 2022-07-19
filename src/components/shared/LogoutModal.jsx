@@ -1,37 +1,22 @@
-/* eslint-disable object-shorthand */
 /* eslint-disable react/prop-types */
-/* eslint-disable quotes */
-import axios from "axios";
-import React, { useState } from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-
-// const style = {
-//   position: "absolute",
-//   top: "50%",
-//   left: "50%",
-//   transform: "translate(-50%, -50%)",
-//   width: "90%",
-//   height: "60%",
-//   bgcolor: "background.paper",
-//   boxShadow: 24,
-//   p: 4,
-//   borderRadius: 5,
-// };
+import axios from 'axios';
+import React, { useState } from 'react';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
 
 const style = {
-  position: "absolute",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "90%",
-  height: "60%",
-  bgcolor: "background.paper",
+  position: 'absolute',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '90%',
+  height: '60%',
+  bgcolor: 'background.paper',
   boxShadow: 24,
   p: 4,
   borderRadius: 2,
@@ -48,18 +33,15 @@ export default function LogoutModal({ setTooltipName, setLoggedInUser }) {
   };
 
   const handleLogout = () => {
-    console.log("handling logout");
+    console.log('handling logout');
     axios
-      .post("/logout")
+      .post('/logout')
       .then((res) => {
-        console.log("successful logout");
-        console.log(res);
-
+        console.log('successful logout');
         setLoggedInUser(null);
         handleClose();
       })
       .catch((error) => {
-        console.log("failed logout???");
         console.log(error);
       });
   };
@@ -98,7 +80,7 @@ export default function LogoutModal({ setTooltipName, setLoggedInUser }) {
             variant="contained"
             color="secondary"
             size="large"
-            sx={{ mt: 1, height: "50px" }}
+            sx={{ mt: 1, height: '50px' }}
             onClick={handleLogout}
           >
             Logout
@@ -111,7 +93,7 @@ export default function LogoutModal({ setTooltipName, setLoggedInUser }) {
             variant="contained"
             color="secondary"
             size="large"
-            sx={{ mt: 1, height: "50px" }}
+            sx={{ mt: 1, height: '50px' }}
             onClick={() => handleClose()}
           >
             Nah

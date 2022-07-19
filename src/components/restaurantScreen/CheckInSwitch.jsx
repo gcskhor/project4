@@ -6,11 +6,9 @@
 import * as React from "react";
 
 import { Switch, FormControlLabel, FormGroup } from "@mui/material";
-import { useEffect } from "react";
 
-const CheckInSwitch = ({ checkedIn, setCheckedIn, restaurantCheckInOut }) => {
+const CheckInSwitch = ({ checkedIn, setCheckedIn }) => {
   const handleChange = (event) => {
-    // console.log(event.target.value);
     checkedIn ? setCheckedIn(false) : setCheckedIn(true);
   };
 

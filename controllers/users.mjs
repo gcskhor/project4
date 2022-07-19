@@ -1,12 +1,11 @@
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable spaced-comment */
-/* eslint-disable camelcase */
 import jsSHA from 'jssha';
 import axios from 'axios';
+import dotenv from 'dotenv';
 import telegramNotify, { updatesUrl } from '../telebot.mjs';
 
-const SALT = 'whatSUP_!!1!0_0';
+dotenv.config();
+
+const { SALT } = process.env;
 const ERROR = 'error';
 const SUCCESS = 'success';
 
@@ -20,7 +19,6 @@ const generateHash = (password) => {
 export default function initUserController(db) {
   const login = async (req, res) => {
     try {
-      console.log('\x1b[36m%s\x1b[0m', 'login start');
       const { email, password } = req.body;
       const hashedPassword = generateHash(password);
       const user = await db.User.findOne({
@@ -41,7 +39,6 @@ export default function initUserController(db) {
       }
 
       else {
-        console.log(user);
         const {
           id, username, email, restaurant_id, rewards,
         } = user.dataValues;
@@ -53,18 +50,13 @@ export default function initUserController(db) {
           id, username, email, restaurantId: restaurant_id, rewards,
         });
       }
-
-      console.log('\x1b[36m%s\x1b[0m', 'login end');
     } catch (err) {
-      console.log('\x1b[36m%s\x1b[0m', 'login error');
       console.error(err);
     }
   };
 
   const signup = async (req, res) => {
     try {
-      console.log('\x1b[36m%s\x1b[0m', 'signup start');
-      // console.log(req.body);
       const {
         email, password, username, telegram_handle,
       } = req.body;
@@ -84,9 +76,7 @@ export default function initUserController(db) {
           password: hashedPassword,
         });
 
-        /////////////////////////////////////////////
         // TELEGRAM SENDMESSAGE ON SUCCESSFUL SIGNUP
-
         if (newUser) {
           await axios.get(updatesUrl)
             .then((response) => {
@@ -96,8 +86,6 @@ export default function initUserController(db) {
 
               for (const el of response.data.result) {
                 if (el.message.chat.username === telegram_handle) {
-                  console.log('found');
-                  console.log(el.message.chat.id);
                   telegramId = el.message.chat.id;
                   break;
                 }
@@ -126,36 +114,25 @@ export default function initUserController(db) {
             });
         }
 
-        /////////////////////////////////////////////
-        /////////////////////////////////////////////
-
         res.send(SUCCESS);
-        console.log('\x1b[36m%s\x1b[0m', 'signup end');
       }
     } catch (err) {
-      console.log('\x1b[36m%s\x1b[0m', 'signup error');
       console.log(err);
       res.status(501).send(ERROR);
     }
   };
 
   const logout = async (req, res) => {
-    console.log('\x1b[36m%s\x1b[0m', 'logout start');
-    console.log('logging out');
     try {
-      console.log('logging out');
       res.clearCookie('userId');
       res.clearCookie('login');
       res.send('logged out');
-      console.log('\x1b[36m%s\x1b[0m', 'logout end');
     } catch (err) {
-      console.log('\x1b[36m%s\x1b[0m', 'logout error');
       console.log(err);
     }
   };
 
   const checkIn = async (req, res) => {
-    console.log('\x1b[36m%s\x1b[0m', 'checkIn start');
     console.log(req.body);
 
     try {
@@ -163,7 +140,6 @@ export default function initUserController(db) {
 
       if (user) {
         const { id } = user;
-
         const updatedUser = await db.User.update(
           {
             restaurant_id: restaurant.id,
@@ -174,21 +150,13 @@ export default function initUserController(db) {
             },
           },
         );
-
-        console.log(updatedUser);
-        console.log('\x1b[36m%s\x1b[0m', 'checkIn end');
       }
     } catch (err) {
-      console.log('\x1b[36m%s\x1b[0m', 'checkIn error');
-
       console.log(err);
     }
   };
 
   const checkOut = async (req, res) => {
-    console.log('\x1b[36m%s\x1b[0m', 'checkOut start');
-    console.log(req.body);
-
     try {
       const { user, restaurant } = req.body;
 
@@ -205,49 +173,29 @@ export default function initUserController(db) {
             },
           },
         );
-
-        console.log(updatedUser);
       }
-
-      console.log('\x1b[36m%s\x1b[0m', 'checkOut end');
     }
     catch (err) {
-      console.log('\x1b[36m%s\x1b[0m', 'checkout error');
       console.log(err);
     }
   };
 
   const getVisits = async (req, res) => {
     try {
-      console.log('\x1b[36m%s\x1b[0m', 'getVisits start');
-
-      // console.log(req.params);
       const { id } = req.params;
-
       const user = await db.User.findOne({
         where: {
           id,
         },
       });
 
-      // console.log(user.dataValues.visited);
-
       const { visited } = user.dataValues;
-
-      // if (!visited) {
-      //   res.send({ visited: 0 });
-      // } else {
-      //   res.send({ visited });
-      // }
 
       !visited
         ? res.send({ visited: 0 })
         : res.send({ visited });
-
-      console.log('\x1b[36m%s\x1b[0m', 'getVisits end');
     } catch (err) {
       console.log(err);
-      console.log('\x1b[36m%s\x1b[0m', 'getVisits error');
     }
   };
 

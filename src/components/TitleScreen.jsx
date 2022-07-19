@@ -1,20 +1,19 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-/* eslint-disable quotes */
 /* eslint-disable react/prop-types */
 
-import React, { useState, useEffect } from "react";
-import { Box, Paper } from "@mui/material";
-import axios from "axios";
-import LoginModal from "./shared/LoginModal.jsx";
-import SignupModal from "./shared/SignupModal.jsx";
-import LogoutModal from "./shared/LogoutModal.jsx";
-import PlaceSearch from "./PlaceSearch.jsx";
-import SpeedDialTooltipOpen from "./titleScreen/SpeedDialTooltip.jsx";
+import React, { useState, useEffect } from 'react';
+import { Box, Paper } from '@mui/material';
+import axios from 'axios';
+import LoginModal from './shared/LoginModal.jsx';
+import SignupModal from './shared/SignupModal.jsx';
+import LogoutModal from './shared/LogoutModal.jsx';
+import PlaceSearch from './PlaceSearch.jsx';
+import SpeedDialTooltipOpen from './titleScreen/SpeedDialTooltip.jsx';
 
-const LOGIN = "Login";
-const SIGNUP = "Signup";
-const FAVOURITES = "Favorites";
-const LOGOUT = "Logout";
+const LOGIN = 'Login';
+const SIGNUP = 'Signup';
+const FAVOURITES = 'Favorites';
+const LOGOUT = 'Logout';
 
 export default function TitleScreen({
   setSelectedRestaurant,
@@ -29,7 +28,7 @@ export default function TitleScreen({
     setCheckedInRestaurantData(null);
     if (loggedInUser && loggedInUser.restaurantId) {
       axios
-        .post("/get-checked-in-restaurant", {
+        .post('/get-checked-in-restaurant', {
           restaurantId: loggedInUser.restaurantId,
         })
         .then((result) => {
@@ -78,7 +77,7 @@ export default function TitleScreen({
       sx={{
         p: 5,
         m: 2,
-        backgroundColor: "whitesmoke",
+        backgroundColor: 'whitesmoke',
         borderRadius: 3,
         boxShadow: 15,
       }}

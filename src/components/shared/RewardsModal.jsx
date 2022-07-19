@@ -1,35 +1,30 @@
-/* eslint-disable operator-linebreak */
-/* eslint-disable arrow-body-style */
-/* eslint-disable object-shorthand */
 /* eslint-disable react/prop-types */
-/* eslint-disable quotes */
-import axios from "axios";
-import React, { useState, useEffect } from "react";
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Typography,
-  Divider,
   Modal,
   List,
   ListItem,
   Button,
-} from "@mui/material";
+} from '@mui/material';
 
-export const REWARD_LIKES = "SUPerb Helper";
-export const REWARD_REVIEWS = "Reviewer SUPreme";
-export const REWARD_VISITS = "SUPer Explorer";
+export const REWARD_LIKES = 'SUPerb Helper';
+export const REWARD_REVIEWS = 'Reviewer SUPreme';
+export const REWARD_VISITS = 'SUPer Explorer';
 
 const style = {
-  position: "absolute",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "90%",
-  height: "60%",
-  bgcolor: "background.paper",
+  position: 'absolute',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '90%',
+  height: '60%',
+  bgcolor: 'background.paper',
   boxShadow: 24,
   p: 4,
   borderRadius: 2,
@@ -50,7 +45,7 @@ export default function RewardsModal({
 
   useEffect(() => {
     const results = Promise.all([
-      axios.get("/rewards"),
+      axios.get('/rewards'),
       axios.get(`/rewards/likes/${loggedInUser.id}`),
       axios.get(`/rewards/visits/${loggedInUser.id}`),
       axios.get(`/rewards/reviews/${loggedInUser.id}`),
@@ -91,8 +86,8 @@ export default function RewardsModal({
       setLoggedInUser(userAddReward);
 
       axios
-        .post("/rewards/collect", {
-          rewardName: rewardName,
+        .post('/rewards/collect', {
+          rewardName,
           user: loggedInUser,
         })
         .then((response) => {
@@ -110,7 +105,7 @@ export default function RewardsModal({
       <ListItem key={reward.id + reward.name}>
         <Box width="100%" backgroundColor="whitesmoke" p={2} borderRadius={2}>
           <Typography
-            sx={{ display: "inline", fontSize: 15 }}
+            sx={{ display: 'inline', fontSize: 15 }}
             component="div"
             variant="h6"
             color="text.primary"
@@ -120,43 +115,43 @@ export default function RewardsModal({
           <Box>
             <Box>
               <Typography
-                sx={{ display: "inline", fontSize: 11 }}
+                sx={{ display: 'inline', fontSize: 11 }}
                 component="div"
                 variant="body2"
                 color="text.secondary"
               >
-                {reward.name === REWARD_LIKES &&
-                  "Receive a total of 40 likes across all your chat messages."}
-                {reward.name === REWARD_VISITS && "Check into 20 restaurants."}
-                {reward.name === REWARD_REVIEWS &&
-                  "Write a total of 5 reviews."}
+                {reward.name === REWARD_LIKES
+                  && 'Receive a total of 40 likes across all your chat messages.'}
+                {reward.name === REWARD_VISITS && 'Check into 20 restaurants.'}
+                {reward.name === REWARD_REVIEWS
+                  && 'Write a total of 5 reviews.'}
               </Typography>
             </Box>
             <Box>
               <Typography
-                sx={{ display: "inline", fontSize: 11 }}
+                sx={{ display: 'inline', fontSize: 11 }}
                 component="div"
                 variant="body2"
                 color="text.secondary"
               >
-                {reward.name === REWARD_LIKES &&
-                  `You have:
+                {reward.name === REWARD_LIKES
+                  && `You have:
                 ${numLikes}
                 /40 likes`}
-                {reward.name === REWARD_VISITS &&
-                  `You have:
+                {reward.name === REWARD_VISITS
+                  && `You have:
                 ${numVisits}
                 /20 visits`}
-                {reward.name === REWARD_REVIEWS &&
-                  `You have:
+                {reward.name === REWARD_REVIEWS
+                  && `You have:
                 ${numReviews}
                 /5 reviews`}
               </Typography>
             </Box>
-            {reward.name === REWARD_LIKES &&
-              numLikes >= 40 &&
-              collectRewardButton &&
-              !userHasReward(REWARD_LIKES) && (
+            {reward.name === REWARD_LIKES
+              && numLikes >= 40
+              && collectRewardButton
+              && !userHasReward(REWARD_LIKES) && (
                 <Button
                   variant="outlined"
                   size="small"
@@ -167,11 +162,11 @@ export default function RewardsModal({
                 >
                   Collect Reward
                 </Button>
-              )}
-            {reward.name === REWARD_VISITS &&
-              numVisits >= 20 &&
-              collectRewardButton &&
-              !userHasReward(REWARD_VISITS) && (
+            )}
+            {reward.name === REWARD_VISITS
+              && numVisits >= 20
+              && collectRewardButton
+              && !userHasReward(REWARD_VISITS) && (
                 <Button
                   variant="outlined"
                   size="small"
@@ -182,11 +177,11 @@ export default function RewardsModal({
                 >
                   Collect Reward
                 </Button>
-              )}
-            {reward.name === REWARD_REVIEWS &&
-              numReviews >= 5 &&
-              collectRewardButton &&
-              !userHasReward(REWARD_REVIEWS) && (
+            )}
+            {reward.name === REWARD_REVIEWS
+              && numReviews >= 5
+              && collectRewardButton
+              && !userHasReward(REWARD_REVIEWS) && (
                 <Button
                   variant="outlined"
                   size="small"
@@ -197,7 +192,7 @@ export default function RewardsModal({
                 >
                   Collect Reward
                 </Button>
-              )}
+            )}
           </Box>
         </Box>
       </ListItem>
@@ -221,15 +216,13 @@ export default function RewardsModal({
             m={1}
             align="center"
           >
-            {" "}
+            {' '}
             Rewards
           </Typography>
 
           {/* {LIST OUT ALL REWARDS} */}
           <List>
-            {rewards.map((reward) => {
-              return <RewardDisplay reward={reward} />;
-            })}
+            {rewards.map((reward) => <RewardDisplay reward={reward} />)}
           </List>
         </Box>
       </Modal>

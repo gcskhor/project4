@@ -1,25 +1,23 @@
-/* eslint-disable object-shorthand */
 /* eslint-disable react/prop-types */
-/* eslint-disable quotes */
-import axios from "axios";
-import React, { useState } from "react";
-import Box from "@mui/material/Box";
-import { TextField } from "@mui/material";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
+import axios from 'axios';
+import React, { useState } from 'react';
+import Box from '@mui/material/Box';
+import { TextField } from '@mui/material';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
 
 const style = {
-  position: "absolute",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "90%",
-  height: "60%",
-  bgcolor: "background.paper",
+  position: 'absolute',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '90%',
+  height: '60%',
+  bgcolor: 'background.paper',
   boxShadow: 24,
   p: 4,
   borderRadius: 2,
@@ -32,8 +30,8 @@ export default function SubmitReviewModal({
   setRestaurantReviews,
 }) {
   const [open, setOpen] = useState(true);
-  const [title, setTitle] = useState("");
-  const [review, setReview] = useState("");
+  const [title, setTitle] = useState('');
+  const [review, setReview] = useState('');
 
   const handleClose = () => {
     setSubmitReviewModal(false);
@@ -42,27 +40,24 @@ export default function SubmitReviewModal({
 
   const handleSubmit = () => {
     const newReview = {
-      title: title,
-      review: review,
+      title,
+      review,
       user: loggedInUser,
       username: loggedInUser.username,
       restaurant: selectedRestaurant,
     };
 
-    console.log(newReview);
-
     setRestaurantReviews((reviews) => [...reviews, newReview]);
-
     handleClose();
 
     axios
-      .post("/reviews/submit", newReview)
+      .post('/reviews/submit', newReview)
       .then((res) => {
-        console.log("successful review");
+        console.log('successful review');
         console.log(res);
       })
       .catch((error) => {
-        console.log("failed login");
+        console.log('failed login');
         console.log(error);
       });
   };
@@ -111,7 +106,7 @@ export default function SubmitReviewModal({
             variant="outlined"
             color="secondary"
             size="large"
-            sx={{ mt: 2, height: "50px" }}
+            sx={{ mt: 2, height: '50px' }}
             onClick={handleSubmit}
           >
             Submit Review

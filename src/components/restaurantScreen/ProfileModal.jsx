@@ -1,42 +1,25 @@
-/* eslint-disable spaced-comment */
-/* eslint-disable object-shorthand */
 /* eslint-disable react/prop-types */
-/* eslint-disable quotes */
-import axios from "axios";
-import React, { useState } from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-import LoginModal from "../shared/LoginModal.jsx";
-import LogoutModal from "../shared/LogoutModal.jsx";
-import RewardsModal from "../shared/RewardsModal.jsx";
-import SignupModal from "../shared/SignupModal.jsx";
-
-// const style = {
-//   position: "absolute",
-//   top: "50%",
-//   left: "50%",
-//   transform: "translate(-50%, -50%)",
-//   width: "90%",
-//   height: "60%",
-//   bgcolor: "background.paper",
-//   boxShadow: 24,
-//   p: 4,
-//   borderRadius: 5,
-// };
+import React, { useState } from 'react';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import LoginModal from '../shared/LoginModal.jsx';
+import LogoutModal from '../shared/LogoutModal.jsx';
+import RewardsModal from '../shared/RewardsModal.jsx';
+import SignupModal from '../shared/SignupModal.jsx';
 
 const style = {
-  position: "absolute",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "90%",
-  height: "60%",
-  bgcolor: "background.paper",
+  position: 'absolute',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '90%',
+  height: '60%',
+  bgcolor: 'background.paper',
   boxShadow: 24,
   p: 4,
   borderRadius: 2,
@@ -79,7 +62,7 @@ export default function ProfileModal({
           variant="contained"
           color="secondary"
           size="large"
-          sx={{ mt: 1, height: "50px" }}
+          sx={{ mt: 1, height: '50px' }}
           onClick={() => setRewardsModal(true)}
         >
           Rewards
@@ -92,20 +75,20 @@ export default function ProfileModal({
           variant="contained"
           color="secondary"
           size="large"
-          sx={{ mt: 1, height: "50px" }}
+          sx={{ mt: 1, height: '50px' }}
           onClick={() => handleClose()}
         >
           Edit Profile
         </Button>
 
-        {/* REDIRECT TO LOGOUT MODAL*/}
+        {/* REDIRECT TO LOGOUT MODAL */}
         <Button
           fullWidth
           type="submit"
           variant="contained"
           color="secondary"
           size="large"
-          sx={{ mt: 1, height: "50px" }}
+          sx={{ mt: 1, height: '50px' }}
           onClick={() => {
             setLoggingOutModal(true);
           }}
@@ -120,7 +103,7 @@ export default function ProfileModal({
           variant="contained"
           color="secondary"
           size="large"
-          sx={{ mt: 1, height: "50px" }}
+          sx={{ mt: 1, height: '50px' }}
           onClick={() => handleClose()}
         >
           Back
@@ -154,9 +137,9 @@ export default function ProfileModal({
           variant="contained"
           color="secondary"
           size="large"
-          sx={{ mt: 1, height: "50px" }}
+          sx={{ mt: 1, height: '50px' }}
           onClick={() => {
-            console.log("login modal");
+            console.log('login modal');
             setLoggingInModal(true);
           }}
         >
@@ -170,9 +153,9 @@ export default function ProfileModal({
           variant="contained"
           color="secondary"
           size="large"
-          sx={{ mt: 1, height: "50px" }}
+          sx={{ mt: 1, height: '50px' }}
           onClick={() => {
-            console.log("signup modal");
+            console.log('signup modal');
             setSigningUpModal(true);
           }}
         >
@@ -186,7 +169,7 @@ export default function ProfileModal({
           variant="contained"
           color="secondary"
           size="large"
-          sx={{ mt: 1, height: "50px" }}
+          sx={{ mt: 1, height: '50px' }}
           onClick={() => handleClose()}
         >
           Back

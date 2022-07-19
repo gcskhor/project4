@@ -1,23 +1,15 @@
 /* eslint-disable camelcase */
 /* eslint-disable react/prop-types */
 /* eslint-disable quotes */
-import axios from "axios";
-import moment from "moment";
-import React, { useState, useEffect } from "react";
-
-import { Box, TextField, Button, Stack, Typography } from "@mui/material";
-
+import React from "react";
+import { Box, Typography } from "@mui/material";
 import ImageDisplay from "./ImageDisplay.jsx";
 
 export default function InfoPage({ selectedRestaurant }) {
   const { address } = selectedRestaurant;
   const {
-    business_status,
     formatted_phone_number,
-    geometry,
-    name,
     opening_hours,
-    photos,
     rating,
   } = selectedRestaurant.place_data;
 
@@ -97,9 +89,7 @@ export default function InfoPage({ selectedRestaurant }) {
             variant="body1"
             color="text.primary"
           >
-            {opening_hours.weekday_text.map((day) => {
-              return <Box>{day}</Box>;
-            })}
+            {opening_hours.weekday_text.map((day) => <Box>{day}</Box>)}
           </Typography>
         )}
       </Box>
@@ -123,7 +113,9 @@ export default function InfoPage({ selectedRestaurant }) {
             variant="body1"
             color="text.primary"
           >
-            {rating} / 5 stars
+            {rating}
+            {' '}
+            / 5 stars
           </Typography>
         )}
       </Box>

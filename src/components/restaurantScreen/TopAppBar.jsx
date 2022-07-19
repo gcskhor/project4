@@ -1,5 +1,5 @@
-/* eslint-disable quotes */
-import * as React from "react";
+/* eslint-disable react/prop-types */
+import * as React from 'react';
 
 import {
   AppBar,
@@ -8,19 +8,19 @@ import {
   IconButton,
   Typography,
   Box,
-} from "@mui/material";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+} from '@mui/material';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 
 const TopAppBar = ({ setSelectedRestaurant }) => {
   const handleBackButton = () => {
     setSelectedRestaurant(null);
-    localStorage.removeItem("selectedRestaurant");
+    localStorage.removeItem('selectedRestaurant');
   };
 
   return (
     <Paper
       sx={{
-        position: "fixed",
+        position: 'fixed',
         top: 0,
         left: 0,
         right: 0,
@@ -29,7 +29,7 @@ const TopAppBar = ({ setSelectedRestaurant }) => {
     >
       <Box sx={{}}>
         <AppBar position="static">
-          <Toolbar maxHeight="20px" sx={{ maxHeight: "20px" }}>
+          <Toolbar maxHeight="20px" sx={{ maxHeight: '20px' }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -47,7 +47,7 @@ const TopAppBar = ({ setSelectedRestaurant }) => {
               component="div"
               sx={{
                 flexGrow: 1,
-                display: { xs: "flex", md: "none" },
+                display: { xs: 'flex', md: 'none' },
               }}
             >
               whatSUP

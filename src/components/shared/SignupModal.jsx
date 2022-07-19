@@ -1,39 +1,23 @@
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable object-shorthand */
 /* eslint-disable react/prop-types */
-/* eslint-disable quotes */
-import axios from "axios";
-import React, { useState } from "react";
-import Box from "@mui/material/Box";
-import { TextField, InputAdornment } from "@mui/material";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-
-// const style = {
-//   position: "absolute",
-//   top: "50%",
-//   left: "50%",
-//   transform: "translate(-50%, -50%)",
-//   width: "90%",
-//   height: "70%",
-//   bgcolor: "background.paper",
-//   boxShadow: 24,
-//   p: 4,
-//   borderRadius: 5,
-// };
+import axios from 'axios';
+import React, { useState } from 'react';
+import Box from '@mui/material/Box';
+import { TextField, InputAdornment } from '@mui/material';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
 
 const style = {
-  position: "absolute",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "90%",
-  height: "60%",
-  bgcolor: "background.paper",
+  position: 'absolute',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '90%',
+  height: '60%',
+  bgcolor: 'background.paper',
   boxShadow: 24,
   p: 4,
   borderRadius: 2,
@@ -41,11 +25,11 @@ const style = {
 
 export default function SignupModal({ setTooltipName }) {
   const [open, setOpen] = useState(true);
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [telegramHandle, setTelegramHandle] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmedPassword, setConfirmedPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [telegramHandle, setTelegramHandle] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmedPassword, setConfirmedPassword] = useState('');
 
   const invalidLogin = password !== confirmedPassword ? true : null;
 
@@ -56,22 +40,22 @@ export default function SignupModal({ setTooltipName }) {
 
   const handleSubmit = () => {
     const signupDetails = {
-      email: email,
-      username: username,
+      email,
+      username,
       telegram_handle: telegramHandle,
-      password: password,
+      password,
     };
 
     console.log(signupDetails);
 
     axios
-      .post("/signup", signupDetails)
+      .post('/signup', signupDetails)
       .then((result) => {
         handleClose();
       })
       .catch((error) => {
         console.log(error);
-        console.log("failed signup");
+        console.log('failed signup');
       });
   };
 
@@ -173,7 +157,7 @@ export default function SignupModal({ setTooltipName }) {
             }}
             error={invalidLogin}
             helperText={
-              password !== confirmedPassword ? "Passwords do not match" : null
+              password !== confirmedPassword ? 'Passwords do not match' : null
             }
           />
 
@@ -183,7 +167,7 @@ export default function SignupModal({ setTooltipName }) {
             variant="contained"
             color="secondary"
             size="large"
-            sx={{ mt: 2, height: "50px" }}
+            sx={{ mt: 2, height: '50px' }}
             onClick={handleSubmit}
             disabled={invalidLogin}
           >
