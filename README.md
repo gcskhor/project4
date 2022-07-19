@@ -24,7 +24,7 @@ Coming soon
 
 > When a user is checked into a restaurant, the telegram bot (activated by the user on signup prompt) will provide notifications whenever a new user is posting messages in the restaurant's chatroom.
 >
-> <img src="./public/images/readme/telegram_bot.jpeg =x750" alt="WhatSup Live Chatroom demo" height="750"/>
+> <img src="./public/images/readme/telegram_bot.jpeg" alt="WhatSup Live Chatroom demo" height="750"/>
 
 ### Reviews
 
