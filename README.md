@@ -50,6 +50,7 @@ To get a local copy running, just follow these steps:
   npm install npm@latest -g
   ```
 - PostgreSQL
+- Telegram bot key - Please contact me if you would like to set this app up locally, so I can share mine with you in a .env file (otherwise you can create your own Telegram bot key)
 
 ### To run
 
