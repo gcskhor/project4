@@ -67,3 +67,21 @@ To get a local copy running, just follow these steps:
    ```sh
    npm run start
    ```
+
+## Built With
+
+|                   | Tech Stack                                                                                                                              | Purpose           |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
+| **Frontend**      | [React](https://github.com/facebook/react/)                                                                                             | User interface    |
+|                   | [Material UI](https://github.com/mui/material-ui)                                                                                       | Component library |
+| **Backend**       | [Node.js](https://github.com/nodejs/node)                                                                                               | Server            |
+|                   | [Express](https://github.com/expressjs/express)                                                                                         | Server            |
+|                   | [PostgreSQL](https://www.postgresql.org/)                                                                                               | Database          |
+|                   | [Sequelize](https://sequelize.org/)                                                                                                     | Database          |
+| **Functionality** | [Google Places Autocomplete Service](https://developers.google.com/maps/documentation/javascript/reference/places-autocomplete-service) | Autocomplete      |
+|                   | [Google Place Details](https://developers.google.com/maps/documentation/places/web-service/details)                                     | Authentication    |
+|                   | [Telegram](https://core.telegram.org/bots/api)                                                                                          | Notifications     |
+
+## Created by:
+
+**Gerald Khor** | [GitHub](https://github.com/gcskhor/) • [LinkedIn](https://www.linkedin.com/in/gerald-khor/) • [Email](mailto:gcskhor94@gmail.com)
