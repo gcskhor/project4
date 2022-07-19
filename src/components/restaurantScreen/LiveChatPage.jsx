@@ -314,8 +314,6 @@ export default function LiveChatPage({
               <Box mt={2}>
                 <Box>{prevMessage.message}</Box>
                 <Box>
-                  {likes > 0 && <Box>{"likes: " + likes}</Box>}
-
                   <Typography
                     sx={{
                       display: "inline",
@@ -328,6 +326,23 @@ export default function LiveChatPage({
                   >
                     {moment(prevMessage.createdAt).calendar()}
                   </Typography>
+                </Box>
+                <Box sx={{ position: "relative" }}>
+                  {likes > 0 && (
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{
+                        fontSize: 13,
+                        position: "absolute",
+                        bottom: "30%",
+                        left: 0,
+                        right: "80%",
+                      }}
+                    >
+                      {likes + " likes"}
+                    </Typography>
+                  )}
                 </Box>
               </Box>
             }

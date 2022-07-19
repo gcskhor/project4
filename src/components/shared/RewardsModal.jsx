@@ -214,7 +214,7 @@ export default function RewardsModal({
       >
         <Box sx={style}>
           <Typography
-            variant="h4"
+            variant="h5"
             display="block"
             fontFamily="Lilita One"
             elevation={5}

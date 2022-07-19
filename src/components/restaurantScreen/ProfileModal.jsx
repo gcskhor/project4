@@ -62,9 +62,12 @@ export default function ProfileModal({
     return (
       <div>
         <Typography
-          className="header-text"
-          id="modal-modal-title"
-          sx={{ mb: 4 }}
+          variant="h5"
+          display="block"
+          fontFamily="Lilita One"
+          elevation={5}
+          m={1}
+          align="center"
         >
           {`${loggedInUser.username}'s Profile`}
         </Typography>

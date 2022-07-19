@@ -73,10 +73,21 @@ export default function LogoutModal({ setTooltipName, setLoggedInUser }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography className="header-text" id="modal-modal-title">
+          <Typography
+            variant="h5"
+            display="block"
+            fontFamily="Lilita One"
+            elevation={5}
+            m={1}
+            align="center"
+          >
             Logout
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2, m: 1 }}>
+          <Typography
+            id="modal-modal-description"
+            align="center"
+            sx={{ mt: 2, m: 1 }}
+          >
             Are you sure you wanna log out?
           </Typography>
 
