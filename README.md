@@ -12,32 +12,32 @@ Coming soon
 
 > Allows the user to search through any restaurant in Singapore using the Google Place Autocomplete & Details APIs
 >
-> <img src="./public/images/readme/whatsup_autocomplete_gif.gif" alt="WhatSup homepage and restaurant autocomplete demo" height="750"/>
+> <img src="./public/images/readme/whatsup_autocomplete_gif.gif" alt="WhatSup homepage and restaurant autocomplete demo" height="500"/>
 
 ### Live Chatroom
 
 > Individual restaurants have their own chatrooms so that users can find out how things are at the restaurant by users who are currently there.
 >
-> <img src="./public/images/readme/whatsup_chatroom_gif.gif" alt="WhatSup Live Chatroom demo" height="750"/>
+> <img src="./public/images/readme/whatsup_chatroom_gif.gif" alt="WhatSup Live Chatroom demo" height="500"/>
 
 ### Telegram Notifications
 
 > When a user is checked into a restaurant, the telegram bot (activated by the user on signup prompt) will provide notifications whenever a new user is posting messages in the restaurant's chatroom.
 >
-> <img src="./public/images/readme/telegram_bot.jpeg" alt="WhatSup Live Chatroom demo" height="750"/>
+> <img src="./public/images/readme/telegram_bot.jpeg" alt="WhatSup Live Chatroom demo" height="500"/>
 
 ### Reviews
 
 > Users who are logged-in can leave reviews on a restaurant of their choice, and these reviews can be viewed by all other users.
 >
-> <img src="./public/images/readme/reviews.png" alt="WhatSup Live Chatroom demo" height="750"/>
+> <img src="./public/images/readme/reviews.png" alt="WhatSup Live Chatroom demo" height="500"/>
 
 ### User Rewards
 
 > Users can get badges through completing objectives related to using the app.
 > These badges appear next to their usernames in chatrooms.
 >
-> <img src="./public/images/readme/whatsup_autocomplete_gif.gif" alt="WhatSup homepage and restaurant autocomplete demo" height="750"/>
+> <img src="./public/images/readme/rewards.png" alt="WhatSup homepage and restaurant autocomplete demo" height="500"/>
 
 ## Local Setup
 
